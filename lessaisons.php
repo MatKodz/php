@@ -63,7 +63,7 @@ foreach ($season as $lacle => $thesaison)
     $quelsaison = $lacle;
 
   }
-  echo "<br>// " . $lacle . " starts in ". $thesaison[0];
+  echo "<br>" . $lacle . " starts in ". $thesaison[0];
   echo "<br>";
 
 
