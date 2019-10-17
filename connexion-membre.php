@@ -14,7 +14,7 @@ if(isset($_POST['valider'])) {
       $_SESSION['lenom'] = $res['CUS_lastname'];
       $_SESSION['leprenom'] = $res['CUS_firstname'];
       $_SESSION['id'] = $res['CUS_id'];
-      header("Location: ./member/"); // je redirige l'utilisateur vers lespace membre
+      header("Location: ./member/"); // je redirige l'utilisateur vers l'espace membre
     }
     else echo 'Mot de passe / username érrone';
   }
