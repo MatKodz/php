@@ -23,14 +23,11 @@
     echo '<li class="page-item"><a class="page-link" href="'.$_SERVER['SCRIPT_NAME'].'">Tout</a></li>';
     echo "</ul></nav><div class=\"row\">";
 
-    if (isset($_GET['filtre']) ) {
+    if (isset($_GET['filtre']) && preg_match('/^[a-zA-Z]{1}$/', $_GET['filtre']) ) {
       $requete = "SELECT * FROM customer_list WHERE CUS_lastname LIKE '".$_GET['filtre']. "%' ";
       }
 
       else $requete = "SELECT * FROM customer_list ORDER BY CUS_lastname";
-
-      //echo "<p>" . $requete ."</p>";
-      //var_dump($_GET['filtre']);
 
     foreach($dbh->query($requete) as $client){
       echo '<div class="col-sm-3">';
