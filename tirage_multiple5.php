@@ -7,6 +7,7 @@ for ($i=0;$i < 10 ; $i++) {
   $nb = rand(0,100);
   //$tirage .= "<p>#$i : $nb </p>";
   $tirage[] = $nb;
+  // equivalent à array_push($tirage,$nb);
     if ($nb % 5 == 0)
     $multiple5[] = $nb;
     //$multiple5 .= "<p> $nb </p>";
