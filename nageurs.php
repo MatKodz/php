@@ -41,8 +41,12 @@ function check_input($input) {
           $req_options = "SELECT DISTINCT CONCAT(perf_distance,' ', perf_style) AS OP FROM nageur_performance;";
           foreach ($dbh->query($req_options) as $option) {
             ?>
-            <option value="<?php echo $option['OP']; ?>" <?php
-            echo ($option['OP'] == $_GET['epreuve']) ? "selected" : "";
+            <option value="<?php echo $option['OP']; ?>"
+              <?php
+              if (isset($_GET['epreuve']))
+              {
+                echo ($option['OP'] == $_GET['epreuve']) ? "selected" : "";
+              }
             ?>
             >
             <?php echo $option['OP']; ?>
@@ -51,6 +55,7 @@ function check_input($input) {
           }
           ?>
         </select>
+        <input type="search" name="n_nageur" value="">
       </div>
       <div>
       <input type="submit" name="rechercher" value="Rechercher" class="btn btn-primary">
@@ -62,12 +67,24 @@ function check_input($input) {
 
 if(isset($_GET['genre']) and isset($_GET['epreuve']) and $_GET['genre'] and $_GET['epreuve']) {
 
+    echo "coucou";
       $req = "SELECT nageur_nom, nageur_prenom, nageur_genre, CONCAT(perf_distance,' ',perf_style) AS EP, RIGHT(perf_temps,8) AS TPS, perf_date FROM nageur_performance, nageur_profil
       WHERE id_nageur = fk_id_nageur and nageur_genre = ? and CONCAT(perf_distance,' ',perf_style) = ? ";
 
       $sth = $dbh->prepare($req);
       $sth->bindValue(1,$_GET['genre']);
       $sth->bindValue(2,$_GET['epreuve']);
+}
+
+else if(isset($_GET['n_nageur']) && $_GET['n_nageur'] ) {
+
+  $req = "SELECT nageur_nom, nageur_prenom, nageur_genre, CONCAT(perf_distance,' ',perf_style) AS EP, RIGHT(perf_temps,8) AS TPS, perf_date FROM nageur_performance, nageur_profil
+  WHERE id_nageur = fk_id_nageur and nageur_nom LIKE ? ";
+
+  $ch_nageur = $_GET['n_nageur'] . "%";
+
+  $sth = $dbh->prepare($req);
+  $sth->bindValue(1,$ch_nageur);
 }
 
 else {
