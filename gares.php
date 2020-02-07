@@ -9,7 +9,8 @@
       <select class="" name="departement">
         <?php
         for($i = 1; $i < 99;$i++) {
-          echo '<option value="'.$i.'">'.$i.'</option>';
+          $dep_f = str_pad($i,2,0,STR_PAD_LEFT); // formatage du numéro de département pour avoir un 0 devant pour les dép de 1 à 9
+          echo '<option value="'.$dep_f.'">'.$dep_f.'</option>'; // création d'un select avec dans l'attribut value le num du département + libellé
         }
          ?>
 
@@ -24,7 +25,7 @@ if(isset($_GET['departement']) && $_GET['departement']) {
 
   echo $_GET['departement'];
 
-  $req = "SELECT nom_gare FROM gare_frequentation WHERE Code_postal LIKE ? ";
+  $req = "SELECT nom_gare, Code_postal FROM gare_frequentation WHERE Code_postal LIKE ? ";
 
   require "connection.php"; // connection à la bbd
 
@@ -37,10 +38,9 @@ if(isset($_GET['departement']) && $_GET['departement']) {
   $jeu = $sth->fetchAll(); // renvoi du résultat sous forme de tableau php
 
   foreach ($jeu as $ligne) {
-    //affichage des résultats
-    echo $ligne['nom_gare'] . "<br>";
+    //affichage des resultats
+    echo "<p>" . $ligne['nom_gare'] . ' | ' . $ligne['Code_postal'] . "<hr></p>";
   }
-
 
 
 }
