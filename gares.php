@@ -26,18 +26,18 @@ if(isset($_GET['departement']) && $_GET['departement']) {
 
   $req = "SELECT nom_gare FROM gare_frequentation WHERE Code_postal LIKE ? ";
 
-  require "connection.php"; // connection bbd
+  require "connection.php"; // connection à la bbd
 
-  $sth = $conn->prepare($req); // prep requete
+  $sth = $conn->prepare($req); //prépapration de la requête avec paramètre
 
-  $dep = $_GET['departement'].'%'; // formatage parametre de l'utilisateur
+  $dep = $_GET['departement'].'%'; // formatage de l'entrée utilisateur pour que ce soit exploitable par la requête SQL (de la forme 34% par ex)
 
-  $sth->execute(array($dep)); // execution de la requete avec passage du parametre
+  $sth->execute(array($dep)); // exécution de la requête avec le paramètre fourni par l'utilisateur ( $dep remplace le ? dans la requête)
 
-  $jeu = $sth->fetchAll(); // resultat sous forme de tableau
+  $jeu = $sth->fetchAll(); // renvoi du résultat sous forme de tableau php
 
   foreach ($jeu as $ligne) {
-    //affichage des resultats
+    //affichage des résultats
     echo $ligne['nom_gare'] . "<br>";
   }
 
