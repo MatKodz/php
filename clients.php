@@ -112,7 +112,7 @@ require_once('connect-bdd.php');
     $sth = $conn->query($req);
   }
 
-  $jeu = $sth->fetchAll(); //$sth stocke le jeu de résultats sous la forme de PDO Statement, le jeu de résultats en différent si le paramètre filterby est pris en compte ou pas
+  $jeu = $sth->fetchAll(); //$sth stocke le jeu de résultats sous la forme de PDO Statement, le jeu de résultats est différent si le paramètre filterby est pris en compte ou pas
 
   if(!$jeu) echo '<div class="col-12"><p class="alert alert-danger">Aucune correspondance trouvée sur : ' . strip_tags($fb) .'</p></div>';
 // si le jeu de résultats est vide : afficher pas de résultats
