@@ -74,6 +74,7 @@ require_once('connect-bdd.php');
   function display_selected($letter) {
     if ( isset($_GET['filterby']) && strtolower($letter) == strtolower($_GET['filterby']) ) {
       return "active";
+      // si filterby correspond à la lettre qui s'affiche, alors retourne la valeur "active" sinon ne retourne rien , cette fonction est appelée à chaque itération de la boucle qui affiche la première lettre du nom
     }
   }
 
@@ -111,13 +112,13 @@ require_once('connect-bdd.php');
     $sth = $conn->query($req);
   }
 
-  $jeu = $sth->fetchAll();
+  $jeu = $sth->fetchAll(); //$sth stocke le jeu de résultats sous la forme de PDO Statement, le jeu de résultats en différent si le paramètre filterby est pris en compte ou pas
 
   if(!$jeu) echo '<div class="col-12"><p class="alert alert-danger">Aucune correspondance trouvée sur : ' . strip_tags($fb) .'</p></div>';
-
+// si le jeu de résultats est vide : afficher pas de résultats
 
   foreach($jeu as $client) {
-
+// affichage du jeu de résultats
     echo '<div class="col-xs col-sm-6 col-lg-4 client">';
     echo '<h4 class="bg bg-dark rounded text-white p-2">'.strtoupper($client['CUS_lastname']).' '.$client['CUS_firstname']. " <small>(" . $client['CUS_id'] . ")</small>". '</h3>';
     echo '<p><b>Inscription le :</b> <span class="badge bagde-pill badge-primary font-weight-normal">'.$client['date_inscription'].'</span></p>';
