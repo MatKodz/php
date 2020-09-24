@@ -13,7 +13,8 @@ if( isset($_POST['envoi'])) {
     require("connect.php");
     $sth = $dbh->prepare($req_ajout);
     $sth->execute(array($_POST['nom'],$_POST['prenom'],$_POST['monmail'],$_POST['monmotdepasse'],$_POST['telephone'],$_POST['adresse'],$_POST['codepostal'],$_POST['ville'],$_POST['locomotion'],$_POST['info']));
-    echo "Votre numéro d'enregistrement : ". $dbh->lastInsertId();
+    // éxecute la requête préparée avec les valeurs présentes dans le tableau array()
+    echo "Votre numéro d'enregistrement : ". $dbh->lastInsertId(); // renvoie le dernier id générée par la BDD
   }
 }
 ?>
