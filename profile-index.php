@@ -1,12 +1,13 @@
 <?php  if (isset($_POST['envoyer'])) {
+  // vérifier si le formuliare a été cliqué
   if ( !empty(trim($_POST['identifier'] ) ) && !empty(trim($_POST['pass'] ) )) {
+    // vérification que les champs de formulaire ne sont pas vides
     $req = "SELECT CUS_id,CUS_email FROM customer_list WHERE CUS_email = ? AND CUS_password = MD5(?)";
     require("connect.php");
     $sth = $dbh->prepare($req);
     $sth->execute(array($_POST['identifier'],$_POST['pass']));
-    $jeu = $sth->fetch();
+    $jeu = $sth->fetch(); // vérifier si le jeu de résultats contient des données / des lignes de résultat
     if($jeu) {
-      //echo $jeu['CUS_id'] . $jeu['CUS_email'];
       session_start();
       $_SESSION['profile_id'] = $jeu['CUS_id'];
       $_SESSION['profile_email'] = $jeu['CUS_email'];
