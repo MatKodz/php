@@ -1,30 +1,22 @@
 <?php
-if(isset($_POST['envoi'])) {
-
+print_r($_POST);
+if( isset($_POST['envoi'])) {
   $erreur = false;
-  foreach ($_POST as $key => $value) {
-    if(empty($value)) {
-      $erreur = true; // je vérifie si chaque champ n'est pas vide, si un champ est vide la variable erreur est modifiée à true
-      echo "<p>" . $key . " est vide";
-    }
+  foreach ($_POST as $value) {
+    if(trim(empty($value)))
+    $erreur = true;
   }
 
-  if(!$erreur) { // si $erreur reste à false, cela sous entend que tous les champs ont été remplis.
-    $donnees = $_POST;
-    array_pop($donnees);  // je supprime le dernier élément du tableau  POST qui correspond au bouton d'envoi
-    $req = "INSERT INTO customer_list VALUES (NULL,?,?,?,?,?,?,?,?,?,?,NOW())";
-    require "connect.php";
-    $donneesv = array_values($donnees); // je transforme le tableau associatif  contenu dans $donnnes en tableau numérotée (format attendu pour la requête préparée)
-    $sth=$dbh->prepare($req);
-    if ($sth->execute($donneesv)) {
-      echo "Création client réussie";
-      print $dbh->lastInsertId();
-    }
-  }
+  if($erreur == false){
+    $req_ajout = "INSERT INTO customer_list (CUS_lastname, CUS_firstname, CUS_email, CUS_password, CUS_phone, CUS_address, CUS_zipcode, CUS_town, CUS_commuting, CUS_info, CUS_register) VALUES (?,?,?,MD5(?),?,?,?,?,?,?,NOW())";
 
+    require("connect.php");
+    $sth = $dbh->prepare($req_ajout);
+    $sth->execute(array($_POST['nom'],$_POST['prenom'],$_POST['monmail'],$_POST['monmotdepasse'],$_POST['telephone'],$_POST['adresse'],$_POST['codepostal'],$_POST['ville'],$_POST['locomotion'],$_POST['info']));
+    echo "Votre numéro d'enregistrement : ". $dbh->lastInsertId();
+  }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -70,10 +62,16 @@ if(isset($_POST['envoi'])) {
 
   input:required { border-left: 2px solid orange;}
 
+  .does-exist {
+    position: fixed;
+    top: 7%;
+    left: 40%;
+  }
 
-    label { font-size: 14px; width: 250px; display: inline-block;}
 
-    input + span, textarea + span { font-size: 75%; color: red; padding-left: 15px;}
+    label { font-size: 16px; width: 280px; display: inline-block;}
+
+    input + span, textarea + span, label + span { font-size: 80%; color: red; padding: 3px; border-bottom: 3px solid red; display: inline-block; margin: 0 10px;}
 
     .col- { border-bottom: 4px solid grey; padding: 2%; margin: 2% 0; background: #fafafa;}
 
@@ -87,7 +85,7 @@ if(isset($_POST['envoi'])) {
 
   <div class="jumbotron mt-2">
 
-    <h1 class="text-dark">Devenir client</h1>
+    <h1 class="text-dark h1">Devenir client</h1>
 
   </div>
 
@@ -103,81 +101,62 @@ if(isset($_POST['envoi'])) {
 
   <div class="col-">
     <label id="lanom" for="Votre nom">Votre nom</label>
-    <input type="text" size="25" name="nom" id="lanom" placeholder="Votre nom ici"   value="testnom">
-    <span>
-            </span>
-  </div>
+    <input type="text" size="25" name="nom" id="lanom" placeholder="Votre nom ici"   value="">
+          </div>
 
   <div class="col-">
     <label id="laprenom" for="Votre prénom">Votre prénom</label>
-    <input type="text" size="25" name="prenom" id="laprenom" placeholder="Votre prénom ici"  value="testprenom">
-    <span>
-            </span>
-  </div>
+    <input type="text" size="25" name="prenom" id="laprenom" placeholder="Votre prénom ici"  value="">
+          </div>
 
   <div class="col-">
   <label id="lamail" for="Votre email">Votre email</label>
   <input type="email" id="lamail" size="30" name="monmail" placeholder="Votre mail ici" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" value="">
-  <span>
-        </span>
+
   </div>
 
   <div class="col-">
   <label id="pwd" for="Votre mot de passe">Votre mot de passe</label>
   <input type="password" id="pwd" size="20" name="monmotdepasse" value="">
-  <span>
-        </span>
-  </div>
+        </div>
 
 
   <div class="col-">
     <label id="lanum" for="Votre numéro de téléphone">Votre numéro de téléphone</label>
-    <input type="text" size="25" name="telephone" id="lanum" placeholder="Votre numéro de téléphone ici" pattern="[0-9]{10}" value="0610123456">
-    <span>
-            </span>
-  </div>
+    <input type="text" size="25" name="telephone" id="lanum" placeholder="Votre numéro de téléphone ici" pattern="[0-9]{10}" value="">
+          </div>
 
 
   <div class="col-">
     <label id="laadresse" for="Votre adresse">Votre adresse</label>
-    <input type="text" size="25" name="adresse" id="lanum" placeholder="Votre adresse" value="rue des oliviers">
-    <span>
-            </span>
-  </div>
+    <input type="text" size="25" name="adresse" id="lanum" placeholder="Votre adresse" value="">
+          </div>
 
 
   <div class="col-">
-    <label id="lacp" for="Votre CP">Votre code postale</label>
-    <input type="text" size="5" name="codepostal" id="lacp" placeholder="Votre CP" value="34000">
-    <span>
-            </span>
-  </div>
+    <label id="lacp" for="Votre CP">Votre code postal</label>
+    <input type="text" size="5" name="codepostal" id="lacp" placeholder="Votre CP" value="">
+          </div>
 
 
 
   <div class="col-">
   <label id="laville" for="Votre ville">Votre ville de résidence</label>
-  <input type="text" size="25" name="ville" id="laville" placeholder="Votre ville ici" value="MPL">
-  <span>
-        </span>
-  </div>
+  <input type="text" size="25" name="ville" id="laville" placeholder="Votre ville ici" value="">
+        </div>
 
   <div class="col-">
-  <label>Comment vous vous déplacez</label>
+  <label>Votre mode de déplacement</label>
   <input type="radio" name="locomotion" value="car" id="voit" ><label for="voit">Voiture</label>
-  <input type="radio" checked name="locomotion" value="bike" id="vel" > <label for="vel">Vélo</label>
+  <input type="radio" name="locomotion" value="bike" id="vel" > <label for="vel">Vélo</label>
   <input type="radio" name="locomotion" value="taxi" id="tax" > <label for="tax">Taxi</label>
   <input type="radio" name="locomotion" value="plane" id="avi" > <label for="avi">Avion</label>
-  <span>
-        </span>
-  </div>
+        </div>
 
   <div class="col-">
     <label id="info" for="Vos informations">Informations complémentaires</label>
-    <textarea name="info" maxlength="500">test info</textarea>
-    <span>
-            </span>
-  </div>
+    <textarea name="info" maxlength="500"></textarea>
+          </div>
 
   <div class="col-12 text-center">
     <input type="submit" name="envoi" value="Envoyer les informations" class="btn btn-success">
