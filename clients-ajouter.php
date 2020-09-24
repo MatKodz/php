@@ -5,6 +5,7 @@ if( isset($_POST['envoi'])) {
   foreach ($_POST as $value) {
     if(trim(empty($value)))
     $erreur = true;
+    // vérification que tous les champs de formulaire sont remplis, si ce n'est pas le cas, la variable erreur prend la valeur VRAI
   }
 
   if($erreur == false){
