@@ -60,10 +60,6 @@ if( isset($_POST['envoi'])) {
 
            }
 
-
-          // paramètre de connexion à la base
-          require "connect-bdd.php";
-
          $requete_enregistrement = "INSERT INTO customer_list (CUS_lastname, CUS_firstname, CUS_email, CUS_password, CUS_phone, CUS_address, CUS_zipcode, CUS_town, CUS_commuting, CUS_info, CUS_register)
          VALUES (:nom, :prenom, :courriel, MD5(:mdp), :telephone, :adresse, :codepostal, :ville, :deplacement, :information, NOW())";
 
