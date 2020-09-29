@@ -1,9 +1,9 @@
 <?php
   if (session_status() == 1) {
     session_start();
-    if ( isset($_SESSION['identifiant']) && isset($_SESSION['id']) )
+    if ( isset($_SESSION['profile_id']) && isset($_SESSION['profile_email']) )
     {
-      setcookie("user", $_SESSION['identifiant'],time() + 60 * 60 * 24 * 30,"/");
+      setcookie("user", $_SESSION['profile_email'],time() + 60 * 60 * 24 * 30,"/");
 
 
 ?>
@@ -41,7 +41,7 @@
     Déconnexion [<span aria-hidden="true">&times;</span>]
   </a>
 <div class="container">
-  <?php if (isset($_SESSION['identifiant'])) echo "<h4 class=\"my-3\"> Profil : " . $_SESSION['identifiant'] . "</h4>";
+  <?php if (isset($_SESSION['profile_email'])) echo "<h4 class=\"my-3\"> Profil : " . $_SESSION['profile_email'] . "</h4>";
   ?>
   <div class="row">
     <div class="col-sm">
@@ -63,7 +63,7 @@
 
   $sth = $conn->prepare($requete_aff);
 
-  $sth->execute(array($_SESSION['id']));
+  $sth->execute(array($_SESSION['profile_id']));
 
   $resultat = $sth->fetchAll();
 
