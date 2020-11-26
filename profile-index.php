@@ -44,7 +44,5 @@ echo '<p class="alert alert-danger">' . $msg . '</p>';
 ?>
 </div>
 </form>
-
 </body>
-salut
 </html>

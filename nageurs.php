@@ -114,6 +114,5 @@ else {
 $dbh = NULL;
 
 ?>
-salut
 </body>
 </html>
