@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title></title>
   </head>
-  <body>
+  <body>coucou
     <form class="" action="" method="get">
       <select class="" name="departement">
         <?php
