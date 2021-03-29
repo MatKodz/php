@@ -235,7 +235,7 @@ if( isset($_POST['envoi'])) {
 
   <div class="col-">
     <label id="laadresse" for="Votre adresse">Votre adresse</label>
-    <input type="text" size="25" name="adresse" id="lanum" placeholder="Votre adresse" value="<?php if((isset($_POST['adresse']))) { echo $_POST['adresse'];}?>">
+    <input type="text" size="25" name="adresse" id="laadresse" placeholder="Votre adresse" value="<?php if((isset($_POST['adresse']))) { echo $_POST['adresse'];}?>">
         <?php if((isset($_POST['adresse'])) && empty($_POST['adresse']) ) { echo "<span>L'adresse est manquante</span>";} ?>
   </div>
 
