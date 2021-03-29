@@ -55,7 +55,7 @@ if( isset($_POST['envoi'])) {
 
            foreach ($_POST as $key => $value) {
 
-             $coordonnees[$key]=$value;
+             $coordonnees[$key]= htmlentities($value);
              // on stocke les valeurs dans un nouveau tableau coordonnees
 
            }
