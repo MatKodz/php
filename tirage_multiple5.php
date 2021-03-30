@@ -23,7 +23,4 @@ foreach ($multiple5 as $value) {
   echo "<p>" . $value ."</p>";
 }
 
-//echo "<div><h3>Tirage</h3>" . $tirage . "</div>";
-//echo "<div><h2>Les multiples de 5</h2>" . $multiple5 . "</div>";
-
  ?>
